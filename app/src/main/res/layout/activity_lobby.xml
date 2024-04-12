@@ -1,10 +1,94 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LobbyActivity">
+    tools:context=".LobbyActivity"
+    android:orientation="vertical"
+    android:weightSum="10"
+    >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="이동하기"
+        android:textSize="24dp"
+        android:gravity="center"
+        android:layout_weight="1"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="내 레벨 : "
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/textViewLevel"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="레벨"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+        </LinearLayout>
+        <Button
+            android:id="@+id/enterMyPage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="내 정보 보기"
+            android:textSize="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:padding="10dp"
+            />
+        <Button
+            android:id="@+id/enterDungeonButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="던전"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="30dp"
+            android:padding="12dp"
+
+            />
+        <Button
+            android:id="@+id/enterShopButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="상점"
+            android:textSize="30dp"
+            android:layout_gravity="center"
+            android:padding="12dp"
+            android:layout_marginTop="30dp"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/returnButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="되돌아가기"
+        android:textSize="14dp"
+        android:layout_gravity="center|bottom"
+        />
+</LinearLayout>

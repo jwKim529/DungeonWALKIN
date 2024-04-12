@@ -21,7 +21,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PedometerActivity extends AppCompatActivity implements SensorEventListener {
@@ -30,9 +29,10 @@ public class PedometerActivity extends AppCompatActivity implements SensorEventL
     private Sensor stepCountSensor;
     private TextView stepCountView;
 
-    private CurrentStep currentStep = new CurrentStep();
+    private final CurrentStep currentStep = new CurrentStep(0,0,0);
+    private final int DEFAULT_STEPS = 1;
 
-    int steps = 1;
+    private int steps = DEFAULT_STEPS;
 
 
     @SuppressLint("SimpleDateFormat")
@@ -67,8 +67,7 @@ public class PedometerActivity extends AppCompatActivity implements SensorEventL
         TextView textViewTime = findViewById(R.id.textViewToday);
         currentStep.setStartTime(System.currentTimeMillis());
         Date date = new Date(currentStep.getStartTime());
-        SimpleDateFormat simpleFormat = new SimpleDateFormat("yyyy-MM-dd");
-        textViewTime.setText(""+simpleFormat.format(date));
+        textViewTime.setText(""+currentStep.simpleDateFormat.format(date));
 
         Button convertButton = findViewById(R.id.convertButton);
         convertButton.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +76,14 @@ public class PedometerActivity extends AppCompatActivity implements SensorEventL
                 currentStep.setEndTime(System.currentTimeMillis());
                 Date endDate = new Date(currentStep.getEndTime());
                 Toast.makeText(getApplicationContext(),
-                        ""+simpleFormat.format(endDate)+"\n걸음 수 : "+steps+"회",
+                        ""+currentStep.simpleDateFormat.format(endDate)+"\n걸음 수 : "+steps+"회",
                         Toast.LENGTH_SHORT).show();
+                currentStep.setSteps(steps);
+                ((DWApp)getApplication()).setCurrentStep(currentStep);
+                ((DWApp)getApplication()).writeCurrentStepsInDB(currentStep);
+                ((DWApp)getApplication()).savePreference(currentStep);
+                currentStep.setClearData();
+                steps = DEFAULT_STEPS;
                 Intent intent = new Intent(PedometerActivity.this, LobbyActivity.class);
                 startActivity(intent);
             }

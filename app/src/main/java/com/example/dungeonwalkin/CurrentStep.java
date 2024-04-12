@@ -1,11 +1,22 @@
 package com.example.dungeonwalkin;
 
-import java.util.Date;
+import android.annotation.SuppressLint;
+
+import java.text.SimpleDateFormat;
 
 public class CurrentStep {
-    int steps;
-    long startTime;
-    long endTime;
+    private int steps;
+    private long startTime;
+    private long endTime;
+
+    @SuppressLint("SimpleDateFormat")
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    public CurrentStep(long startTime, long endTime, int steps) {
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.steps = steps;
+    }
 
     public int getSteps() {
         return steps;
@@ -29,5 +40,11 @@ public class CurrentStep {
 
     public void setEndTime(long endTime) {
         this.endTime = endTime;
+    }
+
+    public void setClearData() {
+        this.startTime = 0;
+        this.endTime = 0;
+        this.steps = 0;
     }
 }

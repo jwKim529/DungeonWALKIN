@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PedometerActivity">
+    <Button
+        android:id="@+id/resultButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="얼마나 걸었나?"
+        android:textSize="12dp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="30dp"
+        android:text="만보기"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/textViewToday"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="1970-01-01"
+        android:textSize="16dp"
+        android:textColor="#CCCCCC"
+        app:layout_constraintBottom_toTopOf="@id/stepCountTag"
+        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintStart_toStartOf="@id/title"
+        />
+
+    <TextView
+        android:id="@+id/stepCountTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="걸음수 : "
+        android:textSize="25dp"
+        app:layout_constraintEnd_toStartOf="@id/stepCountView"
+        app:layout_constraintStart_toStartOf="@id/textViewToday"
+        app:layout_constraintTop_toBottomOf="@id/textViewToday" />
+
+    <TextView
+        android:id="@+id/stepCountView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@id/stepCountTag"
+        app:layout_constraintEnd_toEndOf="@id/title"
+        app:layout_constraintStart_toEndOf="@id/stepCountTag"
+        app:layout_constraintTop_toTopOf="@id/stepCountTag" />
+
+    <Button
+        android:id="@+id/convertButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="변환"
+        android:textSize="22dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/stepCountView"
+        app:layout_constraintStart_toStartOf="@id/stepCountTag"
+        app:layout_constraintTop_toBottomOf="@id/stepCountTag" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

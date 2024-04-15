@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class StepsDBOpenHelper extends SQLiteOpenHelper {
-    public static final String TABLE_NAME = "StepPerDay";
+    public static final String STEP_TABLE_NAME = "StepPerDay";
     public static final String _ID = "_id";
     public static final String START_DATE = "starttime";
     public static final String END_DATE = "endtime";
@@ -20,7 +20,7 @@ public class StepsDBOpenHelper extends SQLiteOpenHelper {
 
     @Override // 부모 메소드 재정의
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL( "CREATE TABLE " + TABLE_NAME + " ("
+        db.execSQL( "CREATE TABLE " + STEP_TABLE_NAME + " ("
                 + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + START_DATE + " INTEGER,"
                 + END_DATE + " INTEGER,"
@@ -28,7 +28,7 @@ public class StepsDBOpenHelper extends SQLiteOpenHelper {
     }
     @Override // 부모 메소드 재정의
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + STEP_TABLE_NAME);
         onCreate(db);
     }
 }

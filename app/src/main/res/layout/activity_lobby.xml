@@ -36,7 +36,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="내 레벨 : "
+                android:text="레벨 : "
                 android:textSize="20dp"
                 android:textColor="#000000"
                 />
@@ -51,8 +51,60 @@
                 android:textColor="#000000"
                 />
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="경험치 : "
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/textViewExp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="경험치"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2"
+            android:gravity="center"
+            >
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="소지금 : "
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+            <TextView
+                android:id="@+id/textViewGold"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="돈"
+                android:textSize="20dp"
+                android:textColor="#000000"
+                />
+        </LinearLayout>
         <Button
-            android:id="@+id/enterMyPage"
+            android:id="@+id/enterMyPageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="내 정보 보기"

@@ -10,6 +10,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,12 +26,14 @@ import java.util.Date;
 
 public class PedometerActivity extends AppCompatActivity implements SensorEventListener {
 
+    private final String TAG = "PedometerActivity";
+
     private SensorManager sensorManager;
     private Sensor stepCountSensor;
     private TextView stepCountView;
 
-    private final CurrentStep currentStep = new CurrentStep(0,0,0);
-    private final int DEFAULT_STEPS = 1;
+    private CurrentStep currentStep = new CurrentStep(0,0,0);
+    private final int DEFAULT_STEPS = 100;
 
     private int steps = DEFAULT_STEPS;
 
@@ -82,7 +85,8 @@ public class PedometerActivity extends AppCompatActivity implements SensorEventL
                 ((DWApp)getApplication()).setCurrentStep(currentStep);
                 ((DWApp)getApplication()).writeCurrentStepsInDB(currentStep);
                 ((DWApp)getApplication()).savePreference(currentStep);
-                currentStep.setClearData();
+                Log.i(TAG, "CurrentStep : "+((DWApp)getApplication()).getCurrentStep().getSteps());
+                currentStep = new CurrentStep(0,0,0);
                 steps = DEFAULT_STEPS;
                 Intent intent = new Intent(PedometerActivity.this, LobbyActivity.class);
                 startActivity(intent);

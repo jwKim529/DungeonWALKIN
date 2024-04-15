@@ -145,9 +145,9 @@ public class ActiveObject {
     }
 
     public void addCurrentGold(int Gold) {
-        this.currentGold += currentGold;
+        this.currentGold += Gold;
     }
     public void removeCurrentGold(int Gold) {
-        this.currentGold -= currentGold;
+        this.currentGold -= Gold;
     }
 }

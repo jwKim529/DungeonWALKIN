@@ -1,31 +1,35 @@
 package com.example.dungeonwalkin;
 
-import android.app.Application;
-import android.content.SharedPreferences;
-import android.util.Log;
-import android.database.sqlite.SQLiteDatabase;
-import android.content.ContentValues;
-import android.database.Cursor;
-
+import static com.example.dungeonwalkin.StatusDBOpenHelper.ATTACK;
 import static com.example.dungeonwalkin.StatusDBOpenHelper.CLEARED;
+import static com.example.dungeonwalkin.StatusDBOpenHelper.DEFENCE;
 import static com.example.dungeonwalkin.StatusDBOpenHelper.EXP;
+import static com.example.dungeonwalkin.StatusDBOpenHelper.GOLD;
 import static com.example.dungeonwalkin.StatusDBOpenHelper.LEVEL;
-import static com.example.dungeonwalkin.StepsDBOpenHelper.STEP_TABLE_NAME;
-import static com.example.dungeonwalkin.StepsDBOpenHelper.START_DATE;
-import static com.example.dungeonwalkin.StepsDBOpenHelper.END_DATE;
-import static com.example.dungeonwalkin.StepsDBOpenHelper.STEPS;
+import static com.example.dungeonwalkin.StatusDBOpenHelper.LIFE;
+import static com.example.dungeonwalkin.StatusDBOpenHelper.OBJNAME;
+import static com.example.dungeonwalkin.StatusDBOpenHelper.SAVEDATE;
+import static com.example.dungeonwalkin.StatusDBOpenHelper.STATUS_TABLE_NAME;
 import static com.example.dungeonwalkin.StepsDBOpenHelper.DATE;
+import static com.example.dungeonwalkin.StepsDBOpenHelper.END_DATE;
+import static com.example.dungeonwalkin.StepsDBOpenHelper.START_DATE;
+import static com.example.dungeonwalkin.StepsDBOpenHelper.STEPS;
+import static com.example.dungeonwalkin.StepsDBOpenHelper.STEP_TABLE_NAME;
 import static com.example.dungeonwalkin.StepsDBOpenHelper.TOTALSTEP;
 
-import static com.example.dungeonwalkin.StatusDBOpenHelper.STATUS_TABLE_NAME;
-import static com.example.dungeonwalkin.StatusDBOpenHelper.ATTACK;
-import static com.example.dungeonwalkin.StatusDBOpenHelper.DEFENCE;
-import static com.example.dungeonwalkin.StatusDBOpenHelper.LIFE;
-import static com.example.dungeonwalkin.StatusDBOpenHelper.SAVEDATE;
-import static com.example.dungeonwalkin.StatusDBOpenHelper.OBJNAME;
+import android.app.Application;
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class DWApp extends Application {
     private final String TAG = "DWApp";
+
+    public static final int REQUEST_CODE = 123;
+    public static final int RESULT_CODE = 123;
+
     private static final String STEP_DB_NAME = "DW_STEP_DB";
     private static final String STATUS_DB_NAME = "DW_STATUS_DB";
     private static final int DB_VERSION = 3;
@@ -44,6 +48,9 @@ public class DWApp extends Application {
 
     //현재 던전 데이터
     private Dungeon currentDungeon;
+    private int currentPlayerLocation=0;
+    private int currentDead = 0;
+    private boolean currentCleared = false;
 
     @Override
     public void onCreate() {
@@ -99,6 +106,7 @@ public class DWApp extends Application {
         values.put(ATTACK,getPlayerData.getCurrentAttack());
         values.put(DEFENCE,getPlayerData.getCurrentDefence());
         values.put(LIFE,getPlayerData.getCurrentLife());
+        values.put(GOLD,getPlayerData.getCurrentGold());
         values.put(CLEARED,getPlayerData.getClearedHighestDungeon());
         values.put(SAVEDATE,System.currentTimeMillis());
         db.insertOrThrow(STATUS_TABLE_NAME, null, values);
@@ -131,12 +139,20 @@ public class DWApp extends Application {
     }
 
     public void setCurrentDungeon(String name) {
-        Log.i(TAG,"CreateDungeon : LV "+playerData.getClearedHighestDungeon());
-        this.currentDungeon = new Dungeon(name, playerData.getClearedHighestDungeon());
+        Log.i(TAG,"CreateDungeon : LV "+playerData.getClearedHighestDungeon()+1);
+        this.currentDungeon = new Dungeon(name, playerData.getClearedHighestDungeon()+1);
     }
 
     public Dungeon getCurrentDungeon () {
         return currentDungeon;
+    }
+
+    public int getCurrentPlayerLocation() {
+        return currentPlayerLocation;
+    }
+
+    public void setCurrentPlayerLocation(int currentPlayerLocation) {
+        this.currentPlayerLocation = currentPlayerLocation;
     }
 
     public void setCurrentStep(CurrentStep step) {
@@ -155,6 +171,21 @@ public class DWApp extends Application {
         this.playerData = playerData;
     }
 
+    public int getCurrentDead() {
+        return currentDead;
+    }
+
+    public void setCurrentDead(int currentDead) {
+        this.currentDead = currentDead;
+    }
+
+    public boolean isCurrentCleared() {
+        return currentCleared;
+    }
+
+    public void setCurrentCleared(boolean currentCleared) {
+        this.currentCleared = currentCleared;
+    }
 
     //preference 관련 메소드(3가지)
     private void clearPreference() {
@@ -180,6 +211,4 @@ public class DWApp extends Application {
         editor.putLong(STARTDATE_KEY, steps.getStartTime());
         editor.apply();
     }
-
-
 }

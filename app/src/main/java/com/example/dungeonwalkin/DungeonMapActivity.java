@@ -1,5 +1,8 @@
 package com.example.dungeonwalkin;
 
+import static com.example.dungeonwalkin.DWApp.REQUEST_CODE;
+import static com.example.dungeonwalkin.DWApp.RESULT_CODE;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,11 +10,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.w3c.dom.Text;
-
 public class DungeonMapActivity extends AppCompatActivity {
+
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -34,7 +38,7 @@ public class DungeonMapActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(DungeonMapActivity.this, DungeonCrawlActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, REQUEST_CODE);
             }
         });
 
@@ -46,5 +50,17 @@ public class DungeonMapActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE && resultCode == RESULT_CODE){
+            if(((DWApp)getApplication()).isCurrentCleared()) {
+                Intent intent = new Intent();
+                setResult(RESULT_CODE, intent);
+                finish();
+            }
+        }
     }
 }

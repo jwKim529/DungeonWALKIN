@@ -49,6 +49,7 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:progressTint="#FF0000"
                 android:max="100"
+                android:progress="100"
                 />
             <TextView
                 android:id="@+id/textViewEnemyDamaged"
@@ -101,6 +102,7 @@
                 style="@android:style/Widget.ProgressBar.Horizontal"
                 android:progressTint="#FF0000"
                 android:max="100"
+                android:progress="100"
                 />
             <TextView
                 android:id="@+id/textViewPlayerDamaged"

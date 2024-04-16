@@ -38,6 +38,12 @@ public class BattleDialog extends DialogFragment {
     private ProgressBar progressBarPlayerLife;
     private int currentPlayerLife;
     private int deadMan;
+
+    private Handler handlerPlayer = new Handler();
+    private int progressPlayerStatus = 0;
+    private Handler handlerEnemy = new Handler();
+    private int progressEnemyStatus = 0;
+
     private DialogInterface.OnDismissListener onDismissListener = null;
     public BattleDialog(DWApp myApp) {
         this.MyApp = myApp;
@@ -188,13 +194,54 @@ public class BattleDialog extends DialogFragment {
             }
         }).start();
         //프로그래스바 표시
-        progressBarEnemyLife.setProgress(
-                (int)(currentEnemyLife/monsterData.getCurrentLife()*100)
-        );
-        progressBarPlayerLife.setProgress(
-                (int)(currentPlayerLife/playerData.getCurrentLife()*100)
-        );
+        progressEnemyStatus = progressBarEnemyLife.getProgress();
+        final int progressEnemyStop = (int)(((double)currentEnemyLife/monsterData.getCurrentLife())*100);
+        Log.i(TAG,"Enemy Progress End : "+progressEnemyStop);
+        new Thread(new Runnable() {
+            public void run() {
+                while (progressEnemyStatus > progressEnemyStop) {
+                    progressEnemyStatus -= 1;
 
+                    handlerEnemy.post(new Runnable() {
+                        public void run() {
+                            progressBarEnemyLife.setProgress(progressEnemyStatus);
+                        }
+                    });
+
+                    try {
+                        // 일정 시간 동안 대기
+                        Thread.sleep(10); // 속도 조절을 위해 sleep 사용
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+
+
+        progressPlayerStatus = progressBarPlayerLife.getProgress();
+        final int progressPlayerStop = (int)(((double)currentPlayerLife/playerData.getCurrentLife())*100);
+        Log.i(TAG,"Player Progress End : "+progressPlayerStop);
+        new Thread(new Runnable() {
+            public void run() {
+                while (progressPlayerStatus > progressPlayerStop) {
+                    progressPlayerStatus -= 1;
+
+                    handlerPlayer.post(new Runnable() {
+                        public void run() {
+                            progressBarPlayerLife.setProgress(progressPlayerStatus);
+                        }
+                    });
+
+                    try {
+                        // 일정 시간 동안 대기
+                        Thread.sleep(10); // 속도 조절을 위해 sleep 사용
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     @Override

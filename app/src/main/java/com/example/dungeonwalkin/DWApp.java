@@ -32,7 +32,7 @@ public class DWApp extends Application {
 
     private static final String STEP_DB_NAME = "DW_STEP_DB";
     private static final String STATUS_DB_NAME = "DW_STATUS_DB";
-    private static final int DB_VERSION = 3;
+    private static final int DB_VERSION = 5;
 
     //만보기DB
     private final StepsDBOpenHelper stepsOpenHelper = new StepsDBOpenHelper(this,STEP_DB_NAME,null, DB_VERSION);
